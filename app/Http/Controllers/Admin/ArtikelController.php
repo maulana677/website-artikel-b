@@ -4,17 +4,15 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\AdminStoreArtikelRequest;
+use App\Http\Requests\AdminUpdateArtikelRequest;
 use App\Models\Artikel;
 use App\Models\Category;
 use App\Traits\DeleteImageTrait;
 use Carbon\Carbon;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
 
 class ArtikelController extends Controller
 {
-
     use DeleteImageTrait;
     /**
      * Display a listing of the resource.
@@ -85,12 +83,21 @@ class ArtikelController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(AdminUpdateArtikelRequest $request, string $id)
     {
         // Temukan artikel berdasarkan ID
         $artikel = Artikel::findOrFail($id);
 
-        // Perbarui data artikel
+        if ($request->hasFile('gambar')) {
+            // Hapus gambar lama jika ada
+            if ($artikel->gambar) {
+                Storage::disk('public')->delete($artikel->gambar);
+            }
+            // Simpan gambar baru
+            $imagePath = $request->file('gambar')->store('artikel', 'public');
+            $artikel->gambar = url('storage/' . $imagePath);
+        }
+
         $artikel->sumber_gambar = $request->sumber_gambar;
         $artikel->judul = $request->judul;
         $artikel->deskripsi = $request->deskripsi;
@@ -98,20 +105,6 @@ class ArtikelController extends Controller
         $artikel->tanggal_posting = Carbon::now();
         $artikel->category_id = $request->category;
 
-        // Handle image upload if file exists in request
-        if ($request->hasFile('gambar')) {
-            // Hapus gambar lama jika ada
-            if (!is_null($artikel->gambar)) {
-                $oldImagePath = str_replace(url('storage/'), '', $artikel->gambar);
-                Storage::disk('public')->delete('artikel/' . $oldImagePath);
-            }
-
-            // Simpan gambar baru
-            $imagePath = $request->file('gambar')->store('artikel', 'public');
-            $artikel->gambar = url('storage/' . $imagePath);
-        }
-
-        // Simpan perubahan ke dalam database
         $artikel->save();
 
         session()->flash("success", "Data Berhasil Diperbarui");
