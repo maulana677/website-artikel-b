@@ -54,21 +54,19 @@
                                                 </td>
                                                 <td>{{ $artikels->sumber_gambar }}</td>
                                                 <td>{{ $artikels->judul }}</td>
-                                                <td>{{ $artikels->deskripsi }}</td>
+                                                <td>{!! $artikels->deskripsi !!}</td>
                                                 <td>{{ $artikels->nama_penulis }}</td>
-                                                <td>{{ $artikels->tanggal_posting }}</td>
+                                                <td>
+                                                    {{ \Carbon\Carbon::parse($artikels->tanggal_posting)->translatedFormat('d-F-Y H:i') }}
+                                                </td>
                                                 <td>{{ $artikels->category->name }}</td>
                                                 <td>
                                                     <a href="{{ route('artikel.edit', $artikels->id) }}"
                                                         class="btn btn-primary"><i class="fas fa-edit"></i></a>
 
-                                                    <form action="{{ route('artikel.destroy', $artikels->id) }}"
-                                                        method="POST" class="d-inline delete-form">
-                                                        @csrf
-                                                        @method('DELETE')
-                                                        <button type="button" class="btn btn-danger delete-button"><i
-                                                                class="fas fa-trash-alt"></i></button>
-                                                    </form>
+                                                    <a href="{{ route('artikel.destroy', $artikels->id) }}"
+                                                        class="btn btn-danger delete-item"><i
+                                                            class="fas fa-trash-alt"></i></a>
                                                 </td>
                                             </tr>
                                         @endforeach

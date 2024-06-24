@@ -24,34 +24,87 @@
                             <h4>Edit Artikel</h4>
                         </div>
                         <div class="card-body">
-                            <form action="{{ route('admin.artikel.update', $artikel->id) }}" method="POST"
+                            <form action="{{ route('artikel.update', $artikel->id) }}" method="POST"
                                 enctype="multipart/form-data">
                                 @csrf
                                 @method('PUT')
                                 <div class="form-group row mb-4">
-                                    <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Judul</label>
+                                    <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Gambar</label>
                                     <div class="col-sm-12 col-md-7">
-                                        <input type="text" name="title" class="form-control"
-                                            value="{{ $artikel->title }}">
-                                        @error('title')
+                                        <div id="image-preview" class="image-preview">
+                                            <label for="image-upload" id="image-label">Choose File</label>
+                                            <input type="file" name="gambar" id="image-upload" />
+                                        </div>
+                                        @error('gambar')
                                             <p class="text-danger">{{ $message }}</p>
                                         @enderror
                                     </div>
                                 </div>
                                 <div class="form-group row mb-4">
-                                    <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Thumbnail</label>
+                                    <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Sumber
+                                        Gambar</label>
                                     <div class="col-sm-12 col-md-7">
-                                        <div id="image-preview" class="image-preview">
-                                            <label for="image-upload" id="image-label">Choose File</label>
-                                            <input type="file" name="thumbnail" id="image-upload" />
-                                        </div>
+                                        <input type="text" name="sumber_gambar" class="form-control"
+                                            value="{{ $artikel->sumber_gambar }}">
+                                        @error('sumber_gambar')
+                                            <p class="text-danger">{{ $message }}</p>
+                                        @enderror
                                     </div>
                                 </div>
                                 <div class="form-group row mb-4">
-                                    <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Isi Konten</label>
+                                    <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Judul
+                                        Artikel</label>
                                     <div class="col-sm-12 col-md-7">
-                                        <textarea name="body" class="summernote">{!! $artikel->body !!}</textarea>
-                                        @error('body')
+                                        <input type="text" name="judul" class="form-control"
+                                            value="{{ $artikel->judul }}">
+                                        @error('judul')
+                                            <p class="text-danger">{{ $message }}</p>
+                                        @enderror
+                                    </div>
+                                </div>
+                                <div class="form-group row mb-4">
+                                    <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Deskripsi</label>
+                                    <div class="col-sm-12 col-md-7">
+                                        <textarea name="deskripsi" class="summernote">{{ $artikel->deskripsi }}</textarea>
+                                        @error('deskripsi')
+                                            <p class="text-danger">{{ $message }}</p>
+                                        @enderror
+                                    </div>
+                                </div>
+                                <div class="form-group row mb-4">
+                                    <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Nama
+                                        Penulis</label>
+                                    <div class="col-sm-12 col-md-7">
+                                        <input type="text" name="nama_penulis" class="form-control"
+                                            value="{{ $artikel->nama_penulis }}">
+                                        @error('nama_penulis')
+                                            <p class="text-danger">{{ $message }}</p>
+                                        @enderror
+                                    </div>
+                                </div>
+                                <div class="form-group row mb-4">
+                                    <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Tanggal
+                                        Posting</label>
+                                    <div class="col-sm-12 col-md-7">
+                                        <input type="date" name="tanggal_posting" class="form-control"
+                                            value="{{ old('tanggal_posting', $artikel->tanggal_posting) }}">
+                                        @error('tanggal_posting')
+                                            <p class="text-danger">{{ $message }}</p>
+                                        @enderror
+                                    </div>
+                                </div>
+                                <div class="form-group row mb-4">
+                                    <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Category</label>
+                                    <div class="col-sm-12 col-md-7">
+                                        <select class="form-control selectric" name="category">
+                                            <option>Select</option>
+                                            @foreach ($categories as $category)
+                                                <option value="{{ $category->id }}"
+                                                    {{ $artikel->category_id == $category->id ? 'selected' : '' }}>
+                                                    {{ $category->name }}</option>
+                                            @endforeach
+                                        </select>
+                                        @error('category')
                                             <p class="text-danger">{{ $message }}</p>
                                         @enderror
                                     </div>
@@ -74,11 +127,11 @@
 @push('scripts')
     <script>
         $(document).ready(function() {
-            $('#image-preview').css({
-                'background-image': 'url("{{ asset('storage/' . $artikel->thumbnail) }}")',
-                'background-size': 'cover',
-                'background-position': 'center center'
-            })
+            $('.image-preview').css({
+                "background-image": "url({{ asset($artikel->gambar) }})",
+                "background-size": "cover",
+                "background-position": "center center"
+            });
         });
     </script>
 @endpush
