@@ -26,4 +26,11 @@ class AdminCategoryUpdateRequest extends FormRequest
             'status' => 'required|boolean',
         ];
     }
+
+    public function messages()
+    {
+        return [
+            'name.required' => 'Kategori harus diisi',
+        ];
+    }
 }

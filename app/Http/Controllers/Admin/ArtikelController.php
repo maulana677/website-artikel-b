@@ -38,6 +38,7 @@ class ArtikelController extends Controller
      */
     public function store(AdminStoreArtikelRequest $request)
     {
+        $validatedData = $request->validated();
         // Inisialisasi objek Artikel dengan data dari request
         $artikel = new Artikel();
         $artikel->sumber_gambar = $request->sumber_gambar;

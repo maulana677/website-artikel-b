@@ -27,7 +27,19 @@ class AdminStoreArtikelRequest extends FormRequest
             'judul' => 'required|string|max:255',
             'deskripsi' => 'required|string|min:100',
             'nama_penulis' => 'required|string|max:255',
-            'tanggal_posting' => 'required|date|after_or_equal:today',
+            'tanggal_posting' => 'required|date',
+        ];
+    }
+
+    public function messages()
+    {
+        return [
+            'gambar.required' => 'Gambar harus diisi max 2 Mb',
+            'sumber_gambar.required' => 'Sumber gambar harus diisi',
+            'judul.required' => 'Judul harus diisi',
+            'deskripsi.required' => 'Deskripsi harus diisi min 100 karakter',
+            'nama_penulis.required' => 'Penulis harus diisi',
+            'tanggal_posting.required' => 'Tanggal harus diisi',
         ];
     }
 }

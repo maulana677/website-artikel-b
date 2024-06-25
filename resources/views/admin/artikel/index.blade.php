@@ -57,7 +57,7 @@
                                                 <td>{!! $artikels->deskripsi !!}</td>
                                                 <td>{{ $artikels->nama_penulis }}</td>
                                                 <td>
-                                                    {{ \Carbon\Carbon::parse($artikels->tanggal_posting)->translatedFormat('d-F-Y H:i') }}
+                                                    {{ \Carbon\Carbon::parse($artikels->created_at)->translatedFormat('d-F-Y H:i') }}
                                                 </td>
                                                 <td>{{ $artikels->category->name }}</td>
                                                 <td>

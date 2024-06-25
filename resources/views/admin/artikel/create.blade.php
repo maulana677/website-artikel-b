@@ -51,9 +51,10 @@
                                 <div class="form-group row mb-4">
                                     <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Judul</label>
                                     <div class="col-sm-12 col-md-7">
-                                        <input type="text" name="judul" class="form-control" value="">
+                                        <input type="text" name="judul" class="form-control">
                                         @error('judul')
-                                            <p class="text-danger">{{ $message }}</p>
+                                            <p class="text-danger">{{ $message }}
+                                            </p>
                                         @enderror
                                     </div>
                                 </div>

@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('judul');
             $table->text('deskripsi');
             $table->string('nama_penulis');
-            $table->timestamp('tanggal_posting')->useCurrent();
+            $table->date('tanggal_posting')->useCurrent();
             $table->foreignId('category_id')->constrained('categories')->onDelete('cascade');
             $table->timestamps();
         });
