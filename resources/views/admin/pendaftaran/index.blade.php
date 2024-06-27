@@ -61,8 +61,6 @@
                                                 <td>{{ $pendaftarans->portofolio }}</td>
                                                 <td>{{ $pendaftarans->username }}</td>
                                                 <td>
-                                                    <a href="{{ route('pendaftaran.edit', $pendaftarans->id) }}"
-                                                        class="btn btn-primary"><i class="fas fa-edit"></i></a>
                                                     <a href="{{ route('pendaftaran.show', $pendaftarans->id) }}"
                                                         class="btn btn-primary"><i class="fas fa-eye"></i></a>
                                                     <a href="{{ route('pendaftaran.destroy', $pendaftarans->id) }}"

@@ -7,11 +7,8 @@ use App\Models\Pendaftaran;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
-class PendafataranController extends Controller
+class PendaftaranController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
         $pendaftaran = Pendaftaran::all();
@@ -82,22 +79,6 @@ class PendafataranController extends Controller
 
         // Tampilkan halaman detail dengan data pendaftaran
         return view('admin.pendaftaran.show', compact('pendaftaran'));
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
-    {
-        //
     }
 
     /**

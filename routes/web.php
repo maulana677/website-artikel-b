@@ -3,6 +3,7 @@
 use App\Http\Controllers\Admin\ArtikelController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\PendafataranController;
+use App\Http\Controllers\Admin\PendaftaranController;
 use App\Http\Controllers\Frontend\HomeController;
 use Illuminate\Support\Facades\Route;
 
@@ -23,10 +24,12 @@ use Illuminate\Support\Facades\Route;
 
 // Frontend
 Route::get('/', [HomeController::class, 'index'])->name('home');
-Route::get('/pendaftaran/{id}/download-cv', [PendafataranController::class, 'downloadCV'])->name('pendaftaran.download-cv');
+Route::get('/pendaftaran/{id}/download-cv', [PendaftaranController::class, 'downloadCV'])->name('pendaftaran.download-cv');
 
 
-Route::resource('pendaftaran', PendafataranController::class);
+Route::get('/pendaftaran', [PendaftaranController::class, 'index'])->name('pendaftaran.index');
+Route::post('/pendaftaran', [PendaftaranController::class, 'store'])->name('pendaftaran.store');
+Route::get('/pendaftaran/{id}', [PendaftaranController::class, 'show'])->name('pendaftaran.show');
 
 Route::resource('categories', CategoryController::class);
 
