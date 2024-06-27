@@ -2,6 +2,8 @@
 
 use App\Http\Controllers\Admin\ArtikelController;
 use App\Http\Controllers\Admin\CategoryController;
+use App\Http\Controllers\Admin\PendafataranController;
+use App\Http\Controllers\Frontend\HomeController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -15,9 +17,16 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// Route::get('/', function () {
+//     return view('frontend.home');
+// });
+
+// Frontend
+Route::get('/', [HomeController::class, 'index'])->name('home');
+Route::get('/pendaftaran/{id}/download-cv', [PendafataranController::class, 'downloadCV'])->name('pendaftaran.download-cv');
+
+
+Route::resource('pendaftaran', PendafataranController::class);
 
 Route::resource('categories', CategoryController::class);
 
