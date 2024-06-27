@@ -66,9 +66,9 @@
                                     <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Deskripsi</label>
                                     <div class="col-sm-12 col-md-7">
                                         <textarea name="deskripsi" class="summernote">{{ $artikel->deskripsi }}</textarea>
-                                        @error('deskripsi')
-                                            <p class="text-danger">{{ $message }}</p>
-                                        @enderror
+                                        @if ($errors->has('deskripsi') && empty(old('deskripsi')))
+                                            <p class="text-danger">{{ $errors->first('deskripsi') }}</p>
+                                        @endif
                                     </div>
                                 </div>
                                 <div class="form-group row mb-4">

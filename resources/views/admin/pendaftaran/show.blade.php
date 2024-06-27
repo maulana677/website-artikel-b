@@ -67,7 +67,10 @@
                                         <a href="{{ route('pendaftaran.download-cv', $pendaftaran->id) }}"
                                             target="_blank">Download CV</a>
                                     </td>
-                                    <td class="text-left">{{ $pendaftaran->social_media }}</td>
+                                    <td class="text-left">
+                                        <a href="https://www.linkedin.com/"
+                                            target="_blank">{{ $pendaftaran->social_media }}</a>
+                                    </td>
                                     <td class="text-left">{{ $pendaftaran->portofolio }}</td>
                                 </tr>
                             </table>

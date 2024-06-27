@@ -14,23 +14,14 @@
                             </div>
                         @endif
 
-                        @if ($errors->any())
-                            <div class="alert alert-danger">
-                                <ul>
-                                    @foreach ($errors->all() as $error)
-                                        <li>{{ $error }}</li>
-                                    @endforeach
-                                </ul>
-                            </div>
-                        @endif
-
                         <form action="{{ route('pendaftaran.store') }}" method="POST" enctype="multipart/form-data">
                             @csrf
 
                             <div class="form-group mb-3">
                                 <label for="nama">Nama</label>
-                                <input type="text" name="nama" id="nama" class="form-control"
-                                    value="{{ old('nama') }}" placeholder="Contoh: Maulana Ikhsan" required>
+                                <input type="text" name="nama" id="nama"
+                                    class="form-control @error('nama') is-invalid @enderror" value="{{ old('nama') }}"
+                                    placeholder="Contoh: Maulana Ikhsan" required>
                                 @error('nama')
                                     <p class="text-danger">{{ $message }}</p>
                                 @enderror
@@ -149,7 +140,8 @@
                             <div class="form-group mb-3">
                                 <label for="social_media">Social Media</label>
                                 <input type="text" name="social_media" id="social_media" class="form-control"
-                                    value="{{ old('social_media') }}" placeholder="Contoh: Instagram" required>
+                                    value="{{ old('social_media') }}"
+                                    placeholder="Contoh: linkedin.com/in/maulanaikhsan44" required>
                                 @error('social_media')
                                     <p class="text-danger">{{ $message }}</p>
                                 @enderror

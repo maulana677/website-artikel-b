@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\PendaftaranRequest;
 use App\Models\Pendaftaran;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
@@ -26,46 +27,25 @@ class PendaftaranController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(PendaftaranRequest $request)
     {
-        // Validasi input
-        $validatedData = $request->validate(
-            [
-                'nama' => 'required|string|max:255',
-                'email' => 'required|email|unique:pendaftarans,email',
-                'no_telp' => 'required|string|max:20',
-                'domisili' => 'required|string|max:255',
-                'tempat_lahir' => 'required|string|max:255',
-                'tanggal_lahir' => 'required|date',
-                'status_pekerjaan' => 'required|string|max:255',
-                'minat_divisi' => 'required|string|in:People Development,Talent Acquisition,Internal Finance dan Eksternal Finance,Community Development,Ambassador Development,Eksternal Relation,Community Partner,Social Media Strategist,Graphic Design,Content Creator,Web Developer,Brand Ambassador,Secretary',
-                'upload_cv' => 'required|file|max:2048', // maksimal 2MB, sesuaikan jika diperlukan
-                'social_media' => 'required|string|max:255',
-                'portofolio' => 'required|string',
-                'username' => 'required|string|unique:pendaftarans,username',
-            ],
-            [
-                'nama.required' => 'Name field is required.',
-            ]
-        );
-
         // Simpan file CV ke penyimpanan 'public'
         $cvPath = $request->file('upload_cv')->store('cv', 'public');
 
         // Buat pendaftaran baru dengan data yang valid
         $pendaftaran = new Pendaftaran();
-        $pendaftaran->nama = $validatedData['nama'];
-        $pendaftaran->email = $validatedData['email'];
-        $pendaftaran->no_telp = $validatedData['no_telp'];
-        $pendaftaran->domisili = $validatedData['domisili'];
-        $pendaftaran->tempat_lahir = $validatedData['tempat_lahir'];
-        $pendaftaran->tanggal_lahir = $validatedData['tanggal_lahir'];
-        $pendaftaran->status_pekerjaan = $validatedData['status_pekerjaan'];
-        $pendaftaran->minat_divisi = $validatedData['minat_divisi'];
+        $pendaftaran->nama = $request->nama;
+        $pendaftaran->email = $request->email;
+        $pendaftaran->no_telp = $request->no_telp;
+        $pendaftaran->domisili = $request->domisili;
+        $pendaftaran->tempat_lahir = $request->tempat_lahir;
+        $pendaftaran->tanggal_lahir = $request->tanggal_lahir;
+        $pendaftaran->status_pekerjaan = $request->status_pekerjaan;
+        $pendaftaran->minat_divisi = $request->minat_divisi;
         $pendaftaran->upload_cv = $cvPath; // simpan path file CV relatif ke 'storage/app/public'
-        $pendaftaran->social_media = $validatedData['social_media'];
-        $pendaftaran->portofolio = $validatedData['portofolio'];
-        $pendaftaran->username = $validatedData['username'];
+        $pendaftaran->social_media = $request->social_media;
+        $pendaftaran->portofolio = $request->portofolio;
+        $pendaftaran->username = $request->username;
 
         // Simpan pendaftaran
         $pendaftaran->save();
@@ -92,17 +72,23 @@ class PendaftaranController extends Controller
     public function destroy($id)
     {
         try {
+            // Cari pendaftaran berdasarkan ID
             $pendaftaran = Pendaftaran::findOrFail($id);
 
-            // Hapus CV terkait
-            $this->deleteCV($pendaftaran->upload_cv);
+            // Dapatkan path lengkap dari file CV
+            $cvPath = storage_path('app/public/' . $pendaftaran->upload_cv);
 
-            // Hapus pendaftaran
+            // Hapus file CV menggunakan fungsi unlink
+            if (file_exists($cvPath)) {
+                unlink($cvPath); // Hapus file dari sistem file server
+            }
+
+            // Hapus pendaftaran dari database
             $pendaftaran->delete();
 
-            return redirect()->route('pendaftaran.index')->with('success', 'Pendaftaran berhasil dihapus.');
+            return response()->json(['status' => 'success', 'message' => 'Pendaftaran berhasil dihapus']);
         } catch (\Exception $e) {
-            return redirect()->route('pendaftaran.index')->with('error', 'Terjadi kesalahan saat menghapus pendaftaran.');
+            return response()->json(['status' => 'error', 'message' => 'Terjadi kesalahan saat menghapus pendaftaran'], 500);
         }
     }
 
