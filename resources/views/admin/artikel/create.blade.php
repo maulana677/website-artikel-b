@@ -42,7 +42,8 @@
                                     <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Sumber
                                         Gambar</label>
                                     <div class="col-sm-12 col-md-7">
-                                        <input type="text" name="sumber_gambar" class="form-control" value="">
+                                        <input type="text" name="sumber_gambar" class="form-control"
+                                            value="{{ old('sumber_gambar') }}">
                                         @error('sumber_gambar')
                                             <p class="text-danger">{{ $message }}</p>
                                         @enderror
@@ -51,7 +52,8 @@
                                 <div class="form-group row mb-4">
                                     <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Judul</label>
                                     <div class="col-sm-12 col-md-7">
-                                        <input type="text" name="judul" class="form-control">
+                                        <input type="text" name="judul" class="form-control"
+                                            value="{{ old('judul') }}">
                                         @error('judul')
                                             <p class="text-danger">{{ $message }}
                                             </p>
@@ -61,17 +63,18 @@
                                 <div class="form-group row mb-4">
                                     <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Deskripsi</label>
                                     <div class="col-sm-12 col-md-7">
-                                        <textarea name="deskripsi" class="summernote"></textarea>
-                                        @error('deskripsi')
-                                            <p class="text-danger">{{ $message }}</p>
-                                        @enderror
+                                        <textarea name="deskripsi" class="summernote">{{ old('deskripsi') }}</textarea>
+                                        @if ($errors->has('deskripsi') && empty(old('deskripsi')))
+                                            <p class="text-danger">{{ $errors->first('deskripsi') }}</p>
+                                        @endif
                                     </div>
                                 </div>
                                 <div class="form-group row mb-4">
                                     <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Nama
                                         Penulis</label>
                                     <div class="col-sm-12 col-md-7">
-                                        <input type="text" name="nama_penulis" class="form-control" value="">
+                                        <input type="text" name="nama_penulis" class="form-control"
+                                            value="{{ old('nama_penulis') }}">
                                         @error('nama_penulis')
                                             <p class="text-danger">{{ $message }}</p>
                                         @enderror
@@ -81,7 +84,8 @@
                                     <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Tanggal
                                         Posting</label>
                                     <div class="col-sm-12 col-md-7">
-                                        <input type="date" name="tanggal_posting" class="form-control" value="">
+                                        <input type="date" name="tanggal_posting" class="form-control"
+                                            value="{{ old('tanggal_posting') }}">
                                         @error('tanggal_posting')
                                             <p class="text-danger">{{ $message }}</p>
                                         @enderror

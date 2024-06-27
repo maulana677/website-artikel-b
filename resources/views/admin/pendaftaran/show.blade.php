@@ -3,16 +3,16 @@
 @section('content')
     <section class="section">
         <div class="section-header">
-            <h1>Pendaftaran</h1>
+            <h1>Detail Pendaftar - ({{ $pendaftaran->nama }})</h1>
             <div class="section-header-breadcrumb">
                 <div class="breadcrumb-item active"><a href="#">Dashboard</a></div>
                 <div class="breadcrumb-item"><a href="#">Posts</a></div>
-                <div class="breadcrumb-item">Pendaftaran</div>
+                <div class="breadcrumb-item">Detail Pendaftar</div>
             </div>
         </div>
 
         <div class="section-body">
-            <h2 class="section-title">Pendaftaran</h2>
+            <h2 class="section-title">Detail Pendaftar</h2>
             <p class="section-lead mb-3">
                 On this page you can see all the data.
             </p>
@@ -59,7 +59,9 @@
                                     <td>{{ $pendaftaran->status_pekerjaan }}</td>
                                     <td class="text-left">{{ $pendaftaran->domisili }}</td>
                                     <td class="text-left">{{ $pendaftaran->tempat_lahir }}</td>
-                                    <td class="text-left">{{ $pendaftaran->tanggal_lahir }}</td>
+                                    <td>
+                                        {{ \Carbon\Carbon::parse($pendaftaran->tanggal_lahir)->translatedFormat('d F Y') }}
+                                    </td>
                                     <td class="text-left">{{ $pendaftaran->minat_divisi }}</td>
                                     <td class="text-left">
                                         <a href="{{ route('pendaftaran.download-cv', $pendaftaran->id) }}"

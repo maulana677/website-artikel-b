@@ -29,20 +29,25 @@ class PendaftaranController extends Controller
     public function store(Request $request)
     {
         // Validasi input
-        $validatedData = $request->validate([
-            'nama' => 'required|string|max:255',
-            'email' => 'required|email|unique:pendaftarans,email',
-            'no_telp' => 'required|string|max:20',
-            'domisili' => 'required|string|max:255',
-            'tempat_lahir' => 'required|string|max:255',
-            'tanggal_lahir' => 'required|date',
-            'status_pekerjaan' => 'required|string|max:255',
-            'minat_divisi' => 'required|string|in:People Development,Talent Acquisition,Internal Finance dan Eksternal Finance,Community Development,Ambassador Development,Eksternal Relation,Community Partner,Social Media Strategist,Graphic Design,Content Creator,Web Developer,Brand Ambassador,Secretary',
-            'upload_cv' => 'required|file|max:2048', // maksimal 2MB, sesuaikan jika diperlukan
-            'social_media' => 'required|string|max:255',
-            'portofolio' => 'required|string',
-            'username' => 'required|string|unique:pendaftarans,username',
-        ]);
+        $validatedData = $request->validate(
+            [
+                'nama' => 'required|string|max:255',
+                'email' => 'required|email|unique:pendaftarans,email',
+                'no_telp' => 'required|string|max:20',
+                'domisili' => 'required|string|max:255',
+                'tempat_lahir' => 'required|string|max:255',
+                'tanggal_lahir' => 'required|date',
+                'status_pekerjaan' => 'required|string|max:255',
+                'minat_divisi' => 'required|string|in:People Development,Talent Acquisition,Internal Finance dan Eksternal Finance,Community Development,Ambassador Development,Eksternal Relation,Community Partner,Social Media Strategist,Graphic Design,Content Creator,Web Developer,Brand Ambassador,Secretary',
+                'upload_cv' => 'required|file|max:2048', // maksimal 2MB, sesuaikan jika diperlukan
+                'social_media' => 'required|string|max:255',
+                'portofolio' => 'required|string',
+                'username' => 'required|string|unique:pendaftarans,username',
+            ],
+            [
+                'nama.required' => 'Name field is required.',
+            ]
+        );
 
         // Simpan file CV ke penyimpanan 'public'
         $cvPath = $request->file('upload_cv')->store('cv', 'public');
@@ -84,9 +89,21 @@ class PendaftaranController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy($id)
     {
-        //
+        try {
+            $pendaftaran = Pendaftaran::findOrFail($id);
+
+            // Hapus CV terkait
+            $this->deleteCV($pendaftaran->upload_cv);
+
+            // Hapus pendaftaran
+            $pendaftaran->delete();
+
+            return redirect()->route('pendaftaran.index')->with('success', 'Pendaftaran berhasil dihapus.');
+        } catch (\Exception $e) {
+            return redirect()->route('pendaftaran.index')->with('error', 'Terjadi kesalahan saat menghapus pendaftaran.');
+        }
     }
 
     public function downloadCV($id)
