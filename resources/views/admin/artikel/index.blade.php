@@ -14,13 +14,12 @@
         <div class="section-body">
             <h2 class="section-title">Artikel</h2>
             <p class="section-lead">
-                On this page you can see all the data.
+                Di halaman ini Anda dapat melihat semua data.
             </p>
 
             <div class="row">
                 <div class="col-12">
-                    <div class="card">
-
+                    <div class="card card-primary">
                         <div class="card-header">
                             <h4>All Artikel</h4>
                             <div class="card-header-action">
@@ -40,7 +39,8 @@
                                                     @foreach ($kategori as $category)
                                                         <option value="{{ $category->id }}"
                                                             @if (request('category') == $category->id) selected @endif>
-                                                            {{ $category->name }}</option>
+                                                            {{ $category->name }}
+                                                        </option>
                                                     @endforeach
                                                 </select>
                                             </div>

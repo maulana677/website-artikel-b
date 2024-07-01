@@ -14,7 +14,7 @@
         <div class="section-body">
             <h2 class="section-title">Edit Artikel</h2>
             <p class="section-lead">
-                On this page you can create a new post and fill in all fields.
+                Di halaman ini Anda dapat mengubah data barang masuk.
             </p>
 
             <div class="row">

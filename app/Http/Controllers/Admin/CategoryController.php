@@ -19,7 +19,7 @@ class CategoryController extends Controller
     public function index()
     {
         $category = Category::all();
-        return view('admin.category.index', compact('category'));
+        return view('admin.kategori.index', compact('category'));
     }
 
     /**
@@ -27,7 +27,7 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        return view('admin.category.create');
+        return view('admin.kategori.create');
     }
 
     /**
@@ -59,7 +59,7 @@ class CategoryController extends Controller
     public function edit(string $id)
     {
         $category = Category::findOrFail($id);
-        return view('admin.category.edit', compact('category'));
+        return view('admin.kategori.edit', compact('category'));
     }
 
     /**

@@ -14,12 +14,12 @@
         <div class="section-body">
             <h2 class="section-title">Artikel</h2>
             <p class="section-lead">
-                On this page you can create a new post and fill in all fields.
+                Di halaman ini Anda dapat membuat postingan baru dan mengisi semua kolom.
             </p>
 
             <div class="row">
                 <div class="col-12">
-                    <div class="card">
+                    <div class="card card-primary">
                         <div class="card-header">
                             <h4>Create Artikel</h4>
                         </div>

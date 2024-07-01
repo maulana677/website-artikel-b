@@ -20,6 +20,7 @@ class ArtikelController extends Controller
      */
     public function index(Request $request)
     {
+        $kategori = Category::where('status', true)->get();
         $query = Artikel::query();
 
         // Filter berdasarkan kategori jika dipilih
@@ -27,12 +28,9 @@ class ArtikelController extends Controller
             $query->where('category_id', $request->category);
         }
 
-        // Ambil daftar kategori untuk dropdown filter
-        $kategori = Category::all();
-
         // Ambil data artikel sesuai filter
         $artikel = $query->orderBy('created_at', 'desc')->paginate(10);
-        // $artikel = Artikel::with('category')->get();
+
         return view('admin.artikel.index', compact('artikel', 'kategori'));
     }
 

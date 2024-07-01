@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Admin\ArtikelController;
 use App\Http\Controllers\Admin\CategoryController;
+use App\Http\Controllers\Admin\KategoriWilayahController;
 use App\Http\Controllers\Admin\PendafataranController;
 use App\Http\Controllers\Admin\PendaftaranController;
 use App\Http\Controllers\Frontend\HomeController;
@@ -35,3 +36,5 @@ Route::delete('pendaftaran/{id}', [PendaftaranController::class, 'destroy'])->na
 Route::resource('categories', CategoryController::class);
 
 Route::resource('artikel', ArtikelController::class);
+
+Route::resource('kategori-wilayah', KategoriWilayahController::class);
