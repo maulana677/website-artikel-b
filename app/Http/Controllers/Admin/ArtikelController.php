@@ -9,6 +9,7 @@ use App\Models\Artikel;
 use App\Models\Category;
 use App\Traits\DeleteImageTrait;
 use Carbon\Carbon;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
 class ArtikelController extends Controller
@@ -17,10 +18,21 @@ class ArtikelController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $artikel = Artikel::with('category')->get();
+        $query = Artikel::query();
+
+        // Filter berdasarkan kategori jika dipilih
+        if ($request->has('category') && $request->category != '') {
+            $query->where('category_id', $request->category);
+        }
+
+        // Ambil daftar kategori untuk dropdown filter
         $kategori = Category::all();
+
+        // Ambil data artikel sesuai filter
+        $artikel = $query->orderBy('created_at', 'desc')->paginate(10);
+        // $artikel = Artikel::with('category')->get();
         return view('admin.artikel.index', compact('artikel', 'kategori'));
     }
 

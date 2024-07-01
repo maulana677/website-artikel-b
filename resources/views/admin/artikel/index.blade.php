@@ -20,6 +20,7 @@
             <div class="row">
                 <div class="col-12">
                     <div class="card">
+
                         <div class="card-header">
                             <h4>All Artikel</h4>
                             <div class="card-header-action">
@@ -29,6 +30,24 @@
                         </div>
                         <div class="card-body">
                             <div class="table-responsive">
+                                <div class="row mb-4">
+                                    <div class="col-md-6">
+                                        <form action="{{ route('artikel.index') }}" method="GET">
+                                            <div class="form-group mb-2">
+                                                <h5 for="category">Pilih Kategori:</h5>
+                                                <select name="category" id="category" class="form-control">
+                                                    <option value="">Semua Kategori</option>
+                                                    @foreach ($kategori as $category)
+                                                        <option value="{{ $category->id }}"
+                                                            @if (request('category') == $category->id) selected @endif>
+                                                            {{ $category->name }}</option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
+                                            <button type="submit" class="btn btn-primary">Filter</button>
+                                        </form>
+                                    </div>
+                                </div>
                                 <table class="table table-striped" id="table">
                                     <thead>
                                         <tr>
