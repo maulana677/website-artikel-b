@@ -14,7 +14,7 @@
         <div class="section-body">
             <h2 class="section-title">Edit Artikel</h2>
             <p class="section-lead">
-                Di halaman ini Anda dapat mengubah data barang masuk.
+                Di halaman ini Anda dapat mengubah data artikel.
             </p>
 
             <div class="row">

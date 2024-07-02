@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Admin\ArtikelController;
 use App\Http\Controllers\Admin\CategoryController;
+use App\Http\Controllers\Admin\EventController;
 use App\Http\Controllers\Admin\KategoriWilayahController;
 use App\Http\Controllers\Admin\PendafataranController;
 use App\Http\Controllers\Admin\PendaftaranController;
@@ -38,3 +39,5 @@ Route::resource('categories', CategoryController::class);
 Route::resource('artikel', ArtikelController::class);
 
 Route::resource('kategori-wilayah', KategoriWilayahController::class);
+
+Route::resource('event', EventController::class);

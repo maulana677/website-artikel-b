@@ -3,16 +3,16 @@
 @section('content')
     <section class="section">
         <div class="section-header">
-            <h1>Artikel</h1>
+            <h1>Tambah Event</h1>
             <div class="section-header-breadcrumb">
                 <div class="breadcrumb-item active"><a href="#">Dashboard</a></div>
-                <div class="breadcrumb-item"><a href="#">Posts</a></div>
-                <div class="breadcrumb-item">Artikel</div>
+                <div class="breadcrumb-item"><a href="{{ route('event.index') }}">Event</a></div>
+                <div class="breadcrumb-item">Tambah Event</div>
             </div>
         </div>
 
         <div class="section-body">
-            <h2 class="section-title">Artikel</h2>
+            <h2 class="section-title">Tambah Event</h2>
             <p class="section-lead">
                 Di halaman ini Anda dapat membuat postingan baru dan mengisi semua kolom.
             </p>
@@ -21,30 +21,19 @@
                 <div class="col-12">
                     <div class="card card-primary">
                         <div class="card-header">
-                            <h4>Create Artikel</h4>
+                            <h4>Create Event</h4>
                         </div>
                         <div class="card-body">
-                            <form action="{{ route('artikel.store') }}" method="POST" enctype="multipart/form-data">
+                            <form action="{{ route('event.store') }}" method="POST" enctype="multipart/form-data">
                                 @csrf
                                 <div class="form-group row mb-4">
                                     <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Gambar</label>
                                     <div class="col-sm-12 col-md-7">
                                         <div id="image-preview" class="image-preview">
                                             <label for="image-upload" id="image-label">Choose File</label>
-                                            <input type="file" name="gambar" id="image-upload" />
+                                            <input type="file" name="image" id="image-upload" />
                                         </div>
-                                        @error('gambar')
-                                            <p class="text-danger">{{ $message }}</p>
-                                        @enderror
-                                    </div>
-                                </div>
-                                <div class="form-group row mb-4">
-                                    <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Sumber
-                                        Gambar</label>
-                                    <div class="col-sm-12 col-md-7">
-                                        <input type="text" name="sumber_gambar" class="form-control"
-                                            value="{{ old('sumber_gambar') }}">
-                                        @error('sumber_gambar')
+                                        @error('image')
                                             <p class="text-danger">{{ $message }}</p>
                                         @enderror
                                     </div>
@@ -52,11 +41,38 @@
                                 <div class="form-group row mb-4">
                                     <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Judul</label>
                                     <div class="col-sm-12 col-md-7">
-                                        <input type="text" name="judul" class="form-control"
-                                            value="{{ old('judul') }}">
-                                        @error('judul')
+                                        <input type="text" name="title" class="form-control"
+                                            value="{{ old('title') }}">
+                                        @error('title')
+                                            <p class="text-danger">{{ $message }}</p>
+                                        @enderror
+                                    </div>
+                                </div>
+                                <div class="form-group row mb-4">
+                                    <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Tanggal
+                                        Event</label>
+                                    <div class="col-sm-12 col-md-7">
+                                        <input type="date" name="event_date" class="form-control"
+                                            value="{{ old('event_date') }}">
+                                        @error('event_date')
                                             <p class="text-danger">{{ $message }}
                                             </p>
+                                        @enderror
+                                    </div>
+                                </div>
+                                <div class="form-group row mb-4">
+                                    <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Kategori
+                                        Wilayah</label>
+                                    <div class="col-sm-12 col-md-7">
+                                        <select name="kategori_wilayah_id" class="form-control" required>
+                                            <option disabled selected>Pilih Wilayah</option>
+                                            @foreach ($kategoriWilayah as $item)
+                                                <option value="{{ $item->id }}">
+                                                    {{ $item->nama_wilayah }}</option>
+                                            @endforeach
+                                        </select>
+                                        @error('kategori_wilayah_id')
+                                            <p class="text-danger">{{ $message }}</p>
                                         @enderror
                                     </div>
                                 </div>
@@ -70,37 +86,34 @@
                                     </div>
                                 </div>
                                 <div class="form-group row mb-4">
-                                    <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Nama
-                                        Penulis</label>
+                                    <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Status</label>
                                     <div class="col-sm-12 col-md-7">
-                                        <input type="text" name="nama_penulis" class="form-control"
-                                            value="{{ old('nama_penulis') }}">
-                                        @error('nama_penulis')
-                                            <p class="text-danger">{{ $message }}</p>
-                                        @enderror
-                                    </div>
-                                </div>
-                                <div class="form-group row mb-4">
-                                    <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Tanggal
-                                        Posting</label>
-                                    <div class="col-sm-12 col-md-7">
-                                        <input type="date" name="tanggal_posting" class="form-control"
-                                            value="{{ old('tanggal_posting') }}">
-                                        @error('tanggal_posting')
-                                            <p class="text-danger">{{ $message }}</p>
-                                        @enderror
-                                    </div>
-                                </div>
-                                <div class="form-group row mb-4">
-                                    <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Category</label>
-                                    <div class="col-sm-12 col-md-7">
-                                        <select class="form-control selectric" name="category">
-                                            <option disabled selected>Pilih Kategori</option>
-                                            @foreach ($categories as $category)
-                                                <option value="{{ $category->id }}">{{ $category->name }}</option>
-                                            @endforeach
+                                        <select name="status" class="form-control" required>
+                                            <option disabled selected>Pilih Status</option>
+                                            <option value="gratis">Gratis</option>
+                                            <option value="berbayar">Berbayar</option>
                                         </select>
-                                        @error('category')
+                                        @error('status')
+                                            <p class="text-danger">{{ $message }}</p>
+                                        @enderror
+                                    </div>
+                                </div>
+                                <div class="form-group row mb-4">
+                                    <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Tempat</label>
+                                    <div class="col-sm-12 col-md-7">
+                                        <input type="text" name="tempat" class="form-control"
+                                            value="{{ old('tempat') }}">
+                                        @error('tempat')
+                                            <p class="text-danger">{{ $message }}</p>
+                                        @enderror
+                                    </div>
+                                </div>
+                                <div class="form-group row mb-4">
+                                    <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Daftar</label>
+                                    <div class="col-sm-12 col-md-7">
+                                        <input type="text" name="daftar" class="form-control"
+                                            value="{{ old('daftar') }}">
+                                        @error('daftar')
                                             <p class="text-danger">{{ $message }}</p>
                                         @enderror
                                     </div>
