@@ -24,4 +24,9 @@ class Event extends Model
     {
         return $this->belongsTo(KategoriWilayah::class);
     }
+
+    public function kategoriEvent()
+    {
+        return $this->belongsTo(KategoriEvent::class);
+    }
 }

@@ -11,8 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('events', function (Blueprint $table) {
-            $table->date('event_date')->change();
+        Schema::create('kategori_events', function (Blueprint $table) {
+            $table->id();
+            $table->string('nama_event');
+            $table->timestamps();
         });
     }
 
@@ -21,8 +23,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('events', function (Blueprint $table) {
-            $table->dateTime('event_date')->change();
-        });
+        Schema::dropIfExists('kategori_events');
     }
 };

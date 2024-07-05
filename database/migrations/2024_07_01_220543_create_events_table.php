@@ -15,8 +15,9 @@ return new class extends Migration
             $table->id();
             $table->string('title');
             $table->string('image');
-            $table->dateTime('event_date');
+            $table->date('event_date');
             $table->foreignId('kategori_wilayah_id')->constrained('kategori_wilayahs')->onDelete('cascade');
+            $table->foreignId('kategori_event_id')->constrained('kategori_events')->onDelete('cascade');
             $table->string('status')->default('gratis');
             $table->text('deskripsi');
             $table->string('tempat');

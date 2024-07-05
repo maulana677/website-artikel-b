@@ -38,12 +38,15 @@
                 </a>
             </li>
 
-            <li class="dropdown {{ setSidebarActive(['kategori-wilayah.*', 'event.*']) }}">
+            <li class="dropdown {{ setSidebarActive(['kategori-wilayah.*', 'event.*', 'kategori-event.*']) }}">
                 <a href="#" class="nav-link has-dropdown" data-toggle="dropdown"><i class="fas fa-stream"></i>
-                    <span>Section</span></a>
+                    <span>Event</span></a>
                 <ul class="dropdown-menu">
                     <li class="{{ setSidebarActive(['kategori-wilayah.*']) }}"><a class="nav-link"
                             href="{{ route('kategori-wilayah.index') }}">Kategori Wilayah</a>
+                    </li>
+                    <li class="{{ setSidebarActive(['kategori-event.*']) }}"><a class="nav-link"
+                            href="{{ route('kategori-event.index') }}">Kategori Event</a>
                     </li>
                     <li class="{{ setSidebarActive(['event.*']) }}"><a class="nav-link"
                             href="{{ route('event.index') }}">Event</a>
