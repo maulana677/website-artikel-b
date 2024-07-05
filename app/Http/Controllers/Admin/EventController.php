@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\AdminStoreEventRequest;
 use App\Models\Event;
+use App\Models\KategoriEvent;
 use App\Models\KategoriWilayah;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
@@ -26,7 +27,8 @@ class EventController extends Controller
     public function create()
     {
         $kategoriWilayah = KategoriWilayah::all();
-        return view('admin.event.create', compact('kategoriWilayah'));
+        $kategoriEvent = KategoriEvent::all();
+        return view('admin.event.create', compact('kategoriWilayah', 'kategoriEvent'));
     }
 
     /**
@@ -39,6 +41,7 @@ class EventController extends Controller
         $event->title = $request->title;
         $event->event_date = $request->event_date;
         $event->kategori_wilayah_id = $request->kategori_wilayah_id;
+        $event->kategori_event_id = $request->kategori_event_id;
         $event->status = $request->status ?? 'gratis'; // Set default status
         $event->deskripsi = $request->deskripsi;
         $event->tempat = $request->tempat;
@@ -72,7 +75,8 @@ class EventController extends Controller
     {
         $event = Event::findOrFail($id);
         $kategoriWilayah = KategoriWilayah::all();
-        return view('admin.event.edit', compact('event', 'kategoriWilayah'));
+        $kategoriEvent = KategoriEvent::all();
+        return view('admin.event.edit', compact('event', 'kategoriWilayah', 'kategoriEvent'));
     }
 
     /**
@@ -95,6 +99,7 @@ class EventController extends Controller
         $event->title = $request->title;
         $event->event_date = $request->event_date;
         $event->kategori_wilayah_id = $request->kategori_wilayah_id;
+        $event->kategori_event_id = $request->kategori_event_id;
         $event->status = $request->status ?? 'gratis'; // Set default status
         $event->deskripsi = $request->deskripsi;
         $event->tempat = $request->tempat;

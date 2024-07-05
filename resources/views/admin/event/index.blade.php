@@ -57,6 +57,7 @@
                                             <th>Judul</th>
                                             <th>Tanggal Event</th>
                                             <th>Wilayah</th>
+                                            <th>Jenis Event</th>
                                             <th>Status</th>
                                             <th>Deskripsi</th>
                                             <th>Tempat</th>
@@ -76,6 +77,7 @@
                                                     {{ \Carbon\Carbon::parse($events->event_date)->translatedFormat('d F Y') }}
                                                 </td>
                                                 <td>{{ $events->kategoriWilayah->nama_wilayah }}</td>
+                                                <td>{{ $events->kategoriEvent->nama_event }}</td>
                                                 <td>{{ $events->status }}</td>
                                                 <td>{!! $events->deskripsi !!}</td>
                                                 <td>{{ $events->tempat }}</td>

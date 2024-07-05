@@ -82,6 +82,24 @@
                                     </div>
                                 </div>
                                 <div class="form-group row mb-4">
+                                    <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Kategori
+                                        Event</label>
+                                    <div class="col-sm-12 col-md-7">
+                                        <select name="kategori_event_id" class="form-control" required>
+                                            <option disabled selected>Pilih Jenis Event</option>
+                                            @foreach ($kategoriEvent as $item)
+                                                <option value="{{ $item->id }}"
+                                                    {{ $item->id == $event->kategori_event_id ? 'selected' : '' }}>
+                                                    {{ $item->nama_event }}
+                                                </option>
+                                            @endforeach
+                                        </select>
+                                        @error('kategori_event_id')
+                                            <p class="text-danger">{{ $message }}</p>
+                                        @enderror
+                                    </div>
+                                </div>
+                                <div class="form-group row mb-4">
                                     <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Deskripsi</label>
                                     <div class="col-sm-12 col-md-7">
                                         <textarea name="deskripsi" class="summernote">{{ old('deskripsi', $event->deskripsi) }}</textarea>
